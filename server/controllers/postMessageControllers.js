@@ -5,10 +5,21 @@ export const createPostMessage = async(req, res)=>{
         const reqData = req.body;
         const pMessage = new PMessage(reqData);
         const savedPmessage = await pMessage.save();
-        res.status.json({message: "Post Message created succesfully!"})
+        res.status(200).json({message: "Post Message created succesfully!"})
     }
-catch(error)
-{
-    res.status(500).json({error: "Internal server error"});
+    catch(err)
+    {
+        res.status(404).json({error: err.message});
+    }
 }
+
+export const getAllPostMessages = async(req, res)=>{
+    try{
+        const pMessages = await PMessage.find();
+        res.status(200).json(pMessages);
+    }
+    catch(err)
+    {
+        res.status(404).json({error: err.message});
+    }
 }
