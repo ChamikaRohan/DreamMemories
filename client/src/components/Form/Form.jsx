@@ -16,19 +16,42 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function Form() {
+  const apiURL = import.meta.env.VITE_API_BASE_URL;
+
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [creator, setCreator] = useState("");
   const [tags, setTags] = useState([]);
   const [selectedimg, setSelectedimg] = useState("");
+  const [selectedURL, setSelectedURL] = useState("");
 
   const handleTagsChange = (input) => {
     const tagsArray = input.split(',').map(tag => tag.trim());
     setTags(tagsArray);
   };
 
-  const handlePictureUpload = async()=>{
-    fetch()
+  const handlePictureUpload = async(e)=>{
+    e.preventDefault();
+    if(!selectedimg){console.log("No file selected!");return;}
+    const fromdata = new FormData();
+    fromdata.append("file", selectedimg);
+
+    try{
+      const response = await fetch(`${apiURL}/posts/create-pfile`,{
+        method: "POST",
+        body: fromdata
+      });
+      const data = await response.json();
+      setSelectedURL(data[["downloadURL"]]);
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+  }
+
+  const handleSubmit = async()=>{
+    
   }
 
   return (
@@ -39,10 +62,13 @@ export default function Form() {
         <TextField onChange={(e)=>setTitle(e.target.value)} value={title} name="title" variant="outlined" label="Title" fullWidth margin="normal" />
         <TextField onChange={(e)=>setMessage(e.target.value)} value={message} name="message" variant="outlined" label="Message" fullWidth multiline rows={4} margin="normal" />
         <TextField onChange={(e)=>handleTagsChange(e.target.value)} value={tags} name="tags" variant="outlined" label="Tags (comma separated)" fullWidth margin="normal" />
-        <Button onClick={handlePictureUpload} onChange={(e)=>setSelectedimg(e.target.files[0])} component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>Upload picture<VisuallyHiddenInput type="file" accept="image/*" /></Button>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+          <Button style={{flexGrow: 1, marginRight: "10px"}} onChange={(e)=>setSelectedimg(e.target.files[0])} component="label" variant="contained" tabIndex={-1}>Select picture<VisuallyHiddenInput type="file" accept="image/*" /></Button>
+          <Button onClick={handlePictureUpload} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ maxWidth: "10px" }}><CloudUploadIcon /></Button>
+        </div>
         {selectedimg && <Typography variant="body2" style={{ marginTop: '10px' }}>{selectedimg.name}</Typography>}
         <div style={{ marginTop: '10px' }}>
-          <Button variant="contained" color="primary" size="large" type="submit" fullWidth style={{ marginBottom: '10px' }}>Submit</Button>
+          <Button onClick={handleSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ marginBottom: '10px' }}>Submit</Button>
           <Button variant="contained" color="secondary" size="small" fullWidth>Clear</Button>
         </div>
       </form>
