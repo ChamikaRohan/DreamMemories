@@ -88,6 +88,7 @@ const notifyError = (error) => toast.error(`${error}`, {
     console.log(reponse.json());
     notifySuccess();
     setImguploadstatus(false);
+    window.location.reload();
     }
   catch(error)
   {
@@ -108,7 +109,7 @@ const notifyError = (error) => toast.error(`${error}`, {
 
   return (
     <>
-    <Paper elevation={3} style={{ padding: '20px', height: '635px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <Paper elevation={3} style={{ padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <form autoComplete="off" noValidate style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <Typography variant="h6">Create a memory</Typography>
         <TextField onChange={(e)=>setCreator(e.target.value)} value={creator} name="creator" variant="outlined" label="Creator" fullWidth margin="normal" />
@@ -119,7 +120,7 @@ const notifyError = (error) => toast.error(`${error}`, {
           <Button style={{flexGrow: 1, marginRight: "10px"}} onChange={(e)=>setSelectedimg(e.target.files[0])} component="label" variant="contained" tabIndex={-1}>Select picture<VisuallyHiddenInput type="file" accept="image/*" /></Button>
           <Button onClick={handlePictureUpload} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ maxWidth: "10px" }}>{imgloading? <LoadingIcons.Circles speed={.75} height={24} /> : <CloudUploadIcon />}</Button>
         </div>
-        <div style={{ marginTop: '10px' }}>
+        <div style={{ marginTop: '15px' }}>
           <Button onClick={handleSubmit} disabled={!imguploadstatus} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ marginBottom: '10px' }}>Submit</Button>
           <Button onClick={handleClear} variant="contained" color="secondary" size="small" fullWidth>Clear</Button>
         </div>
