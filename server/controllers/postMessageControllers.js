@@ -45,6 +45,34 @@ export const deletePostMessage = async(req, res)=>{
   }
 }
 
+export const updatePostMessage = async(req, res)=>{
+  try{
+    const reqData = req.body;
+    const id = reqData._id;
+
+    const postExists = await PMessage.findOne({ _id: id });
+    if (!postExists) return res.status(404).json({ error: "Post message not found!" });
+
+    const updateData = {};
+    if (reqData.title) updateData.title = reqData.title;
+    if (reqData.message) updateData.message = reqData.message;
+    if (reqData.creator) updateData.creator = reqData.creator;
+    if (reqData.tags) updateData.tags = reqData.tags;
+    if (reqData.image) updateData.image = reqData.image;
+    if (reqData.likeCount) updateData.likeCount = reqData.likeCount;
+    if (reqData.createdAt) updateData.createdAt = reqData.createdAt;
+
+    const updatedPost = await PMessage.findByIdAndUpdate(id, { $set: updateData }, { new: true });
+
+    res.status(200).json(updatedPost);
+  }
+  catch(err)
+  {
+      res.status(500).json({error: err.message});
+  }
+}
+
+
 export const uploadFile = async (req, res) => {
     try {
       const currentDateTime = new Date();

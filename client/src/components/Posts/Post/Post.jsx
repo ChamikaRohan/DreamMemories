@@ -22,6 +22,7 @@ export default function Post({_id, title, creator, postedDate, content, image })
   const apiURL = import.meta.env.VITE_API_BASE_URL;
 
   const truncatedContent = truncateContent(content, 100);
+  const [likescount, setLikescount] = React.useState(0);
 
   const handleDelete = async()=>{
     try{
@@ -40,6 +41,13 @@ export default function Post({_id, title, creator, postedDate, content, image })
     {
       console.log("There was a problem with the fetch operation: ", error);
     }
+  }
+  React.useEffect(()=>{
+    console.log("fdf");
+  }, [likescount])
+
+  const handleLike =  () =>{
+    setLikescount(likescount+1);
   }
   return (
     <Card elevation={2} sx={{ ":hover": {boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.3)"}, maxWidth: 320 }}>
@@ -60,8 +68,9 @@ export default function Post({_id, title, creator, postedDate, content, image })
       </CardContent>
 
       <CardActions sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}} disableSpacing>
-        <IconButton aria-label="like">
+        <IconButton onClick={handleLike} aria-label="like" sx={{color:'red'}}>
           <FavoriteIcon />
+          <Typography sx={{color: "red", fontSize: "25px"}}>{likescount}</Typography>
         </IconButton>
         <IconButton aria-label="delete">
           <DeleteForeverIcon onClick={handleDelete}/>
