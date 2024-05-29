@@ -18,11 +18,11 @@ function truncateContent(content, limit) {
   return content;
 }
 
-export default function Post({_id, title, creator, postedDate, content, image }) {
+export default function Post({_id, likes, title, creator, postedDate, content, image }) {
   const apiURL = import.meta.env.VITE_API_BASE_URL;
 
   const truncatedContent = truncateContent(content, 100);
-  const [likescount, setLikescount] = React.useState(0);
+  const [likeCount, setLikeCount] = React.useState(likes);
 
   const handleDelete = async()=>{
     try{
@@ -42,13 +42,26 @@ export default function Post({_id, title, creator, postedDate, content, image })
       console.log("There was a problem with the fetch operation: ", error);
     }
   }
-  React.useEffect(()=>{
-    console.log("fdf");
-  }, [likescount])
 
-  const handleLike =  () =>{
-    setLikescount(likescount+1);
+  const handleLike = async () => {
+    const newLikesCount = likeCount + 1;
+    setLikeCount(newLikesCount); 
+  
+    try {
+      const response = await fetch(`${apiURL}/posts/update-pmessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ _id, likeCount: newLikesCount }) // Use newLikesCount here
+      });
+      const data = await response.json();
+      console.log(data.message);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   }
+
   return (
     <Card elevation={2} sx={{ ":hover": {boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.3)"}, maxWidth: 320 }}>
       <CardHeader action={ <IconButton aria-label="settings"><MoreVertIcon /></IconButton>}
@@ -68,9 +81,9 @@ export default function Post({_id, title, creator, postedDate, content, image })
       </CardContent>
 
       <CardActions sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}} disableSpacing>
-        <IconButton onClick={handleLike} aria-label="like" sx={{color:'red'}}>
-          <FavoriteIcon />
-          <Typography sx={{color: "red", fontSize: "25px"}}>{likescount}</Typography>
+        <IconButton aria-label="like" sx={{color:'red'}}>
+          <FavoriteIcon onClick={handleLike} />
+          <Typography sx={{color: "red", fontSize: "25px"}}>{likeCount}</Typography>
         </IconButton>
         <IconButton aria-label="delete">
           <DeleteForeverIcon onClick={handleDelete}/>

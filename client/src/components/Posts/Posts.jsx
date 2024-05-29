@@ -31,7 +31,7 @@ const Posts = () => {
       <Grid container spacing={3} >
         {posts.map((post) => (
           <Grid item xs={12} sm={6} key={post._id}>
-            <Post _id={post._id} title={post.title} creator={post.creator} postedDate={formattedDate(post.createdAt)} image={post.image} content={post.message} />
+            <Post _id={post._id} likes={post.likeCount} title={post.title} creator={post.creator} postedDate={formattedDate(post.createdAt)} image={post.image} content={post.message} />
           </Grid>
         ))}
       </Grid>

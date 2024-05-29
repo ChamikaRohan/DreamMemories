@@ -64,7 +64,7 @@ export const updatePostMessage = async(req, res)=>{
 
     const updatedPost = await PMessage.findByIdAndUpdate(id, { $set: updateData }, { new: true });
 
-    res.status(200).json(updatedPost);
+    res.status(200).json({message: "Post message succesfully updated!"});
   }
   catch(err)
   {
