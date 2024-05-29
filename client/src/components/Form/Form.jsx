@@ -19,7 +19,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function Form() {
-  const apiURL = "https://dreammemories-api.onrender.com/api";
+  const apiURL = import.meta.env.VITE_API_BASE_URL;
 
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
