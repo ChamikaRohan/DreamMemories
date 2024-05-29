@@ -3,8 +3,6 @@ import { TextField, Button, Typography, Paper } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import LoadingIcons from 'react-loading-icons'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -19,7 +17,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function Form() {
-  const apiURL = "https://dreammemories-api.onrender.com/api";
+  const apiURL = import.meta.env.VITE_API_BASE_URL;
 
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
@@ -29,22 +27,6 @@ export default function Form() {
   const [selectedURL, setSelectedURL] = useState("");
   const [imguploadstatus, setImguploadstatus] = useState(false);
   const [imgloading, setImgloading] = useState(false);
-
-  const notifySuccess = () => toast.success("Memory uploaded sucsessfully!", {
-    position: "bottom-center",
-    autoClose: 2000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: true,
-    theme: "light"});
-
-const notifyError = (error) => toast.error(`${error}`, {
-    position: "bottom-center",
-    autoClose: 2000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: true,
-    theme: "light"});
 
   const handleTagsChange = (input) => {
     const tagsArray = input.split(',').map(tag => tag.trim());
@@ -86,13 +68,12 @@ const notifyError = (error) => toast.error(`${error}`, {
         body: JSON.stringify({title, message, creator, tags, selectedURL, "image": selectedURL})
     });
     console.log(reponse.json());
-    notifySuccess();
     setImguploadstatus(false);
     window.location.reload();
     }
   catch(error)
   {
-    notifyError("There was a problem with the fetch operation: ", error);
+    console.log("There was a problem with the fetch operation: ", error);
   }
   }
 
@@ -126,7 +107,6 @@ const notifyError = (error) => toast.error(`${error}`, {
         </div>
       </form>
     </Paper>
-    <ToastContainer />
     </>
   );
 }
