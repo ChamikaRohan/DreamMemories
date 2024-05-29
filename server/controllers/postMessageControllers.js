@@ -50,7 +50,6 @@ export const uploadFile = async (req, res) => {
           // Handle upload progress
         },
         (error) => {
-          // Handle upload error
           res.status(500).json({ error: error.message });
         },
         async () => {

@@ -9,7 +9,7 @@ const postMessageSchema = mongoose.Schema({
         required: true,
         type: "String"
     },
-    Creator: {
+    creator: {
         required: true,
         type: "String"
     },
@@ -17,7 +17,7 @@ const postMessageSchema = mongoose.Schema({
         type: [String],
         required: false
     },
-    selectedFile: {
+    image: {
         required: false,
         type: "String"
     },
