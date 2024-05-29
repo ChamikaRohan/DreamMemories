@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material';
 import Post from './Post/Post';
 
 const Posts = () => {
-  const apiURL = import.meta.env.VITE_API_BASE_URL;
+  const apiURL = "https://dreammemories-api.onrender.com/api";
   const [posts, setPosts] = useState([]); 
 
   const getAllPosts = async() =>{
