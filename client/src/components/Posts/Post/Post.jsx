@@ -19,7 +19,7 @@ function truncateContent(content, limit) {
 }
 
 export default function Post({_id, title, creator, postedDate, content, image }) {
-  const apiURL = import.meta.env.VITE_API_BASE_URL;
+  const apiURL = "https://dreammemories-api.onrender.com/api";
 
   const truncatedContent = truncateContent(content, 100);
 
