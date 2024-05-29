@@ -15,7 +15,7 @@ export const createPostMessage = async(req, res)=>{
     }
     catch(err) 
     {
-        res.status(404).json({error: err.message});
+        res.status(500).json({error: err.message});
     }
 }
 
@@ -26,8 +26,23 @@ export const getAllPostMessages = async(req, res)=>{
     }
     catch(err)
     {
-        res.status(404).json({error: err.message});
+        res.status(500).json({error: err.message});
     }
+}
+
+export const deletePostMessage = async(req, res)=>{
+  try{
+      const reqData = await req.body;
+      const id = reqData._id;
+      const postExists = await PMessage.findOne({_id:id});
+      if (!postExists) return res.status(404).json({error: "Post message not found!"});
+      const deletedPost = await PMessage.findByIdAndDelete(id);
+      res.status(201).json({message: "Post message deleted successfully"});
+  }
+  catch(err)
+  {
+      res.status(500).json({error: err.message});
+  }
 }
 
 export const uploadFile = async (req, res) => {
