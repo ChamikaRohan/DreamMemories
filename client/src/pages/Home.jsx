@@ -26,22 +26,10 @@ export default function Home() {
         <Container sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
               <Typography sx={{marginLeft: '20px',fontFamily: 'Poppins Medium',fontSize: {xs: '1.5rem', sm: '2rem',md: '3rem'}}} variant='h4' color="text.primary" align="center" >MEMORIES</Typography>
-              <Box
-      component="img"
-      src={memories}
-      alt="Placeholder"
-      sx={{
-        width: {
-          xs: '30px', 
-          sm: '40px', 
-          md: '50px'
-        },
-        height: 'auto',
-      }}
-    />
+              <Box component="img" src={memories} alt="Placeholder" sx={{width: {xs: '32px', sm: '40px', md: '50px'},height: 'auto'}}/>
             </div>
             <div style={{marginRight: "20px"}}>
-              <AccountCircleIcon onClick={handleLogin} sx={{ width: '40px', height: '40px' }} />
+              <AccountCircleIcon onClick={handleLogin} sx={{width: {xs: '32px', sm: '40px', md: '50px'},height: 'auto'}} />
             </div>
         </Container>
       </AppBar>
