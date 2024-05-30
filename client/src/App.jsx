@@ -21,7 +21,7 @@ export default function App() {
               <Posts />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form user={false} disabled={true} />
             </Grid>
           </Grid>
         </Container>

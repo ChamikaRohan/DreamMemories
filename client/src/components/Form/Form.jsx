@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, Typography, Paper } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
@@ -16,7 +16,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export default function Form() {
+export default function Form({user}) {
   const apiURL = import.meta.env.VITE_API_BASE_URL;
 
   const [title, setTitle] = useState("");
@@ -27,6 +27,7 @@ export default function Form() {
   const [selectedURL, setSelectedURL] = useState("");
   const [imguploadstatus, setImguploadstatus] = useState(false);
   const [imgloading, setImgloading] = useState(false);
+  const [isdisabled, setIsdisabled] = useState(true);
 
   const handleTagsChange = (input) => {
     const tagsArray = input.split(',').map(tag => tag.trim());
@@ -59,7 +60,6 @@ export default function Form() {
   const handleSubmit = async(e)=>{
     e.preventDefault();
     try{
-      console.log({title, message, creator, tags, "image": selectedURL});
       const reponse = await fetch(`${apiURL}/posts/create-pmessage`,{
         method: "POST",
         headers: {
@@ -88,23 +88,33 @@ export default function Form() {
     setImgloading(false);
   };
 
+  const handlePaperClick = () =>{
+    if (isdisabled){console.log("sdsd");};
+  }
+
+  useEffect(()=>{
+    if(user){setIsdisabled(false)};
+  },[user])
+
   return (
     <>
-    <Paper elevation={3} style={{ padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <form autoComplete="off" noValidate style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <Paper onClick={handlePaperClick} elevation={3} style={{ padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <form onClick={handlePaperClick} autoComplete="off" noValidate style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <fieldset onClick={handlePaperClick} disabled={isdisabled} style={{ border: 'none', padding: 0 }}>
         <Typography variant="h6">Create a memory</Typography>
-        <TextField onChange={(e)=>setCreator(e.target.value)} value={creator} name="creator" variant="outlined" label="Creator" fullWidth margin="normal" />
-        <TextField onChange={(e)=>setTitle(e.target.value)} value={title} name="title" variant="outlined" label="Title" fullWidth margin="normal" />
-        <TextField onChange={(e)=>setMessage(e.target.value)} value={message} name="message" variant="outlined" label="Message" fullWidth multiline rows={4} margin="normal" />
-        <TextField onChange={(e)=>handleTagsChange(e.target.value)} value={tags} name="tags" variant="outlined" label="Tags (comma separated)" fullWidth margin="normal" />
+        <TextField onClick={handlePaperClick} onChange={(e)=>setCreator(e.target.value)} value={creator} name="creator" variant="outlined" label="Creator" fullWidth margin="normal" />
+        <TextField onClick={handlePaperClick} onChange={(e)=>setTitle(e.target.value)} value={title} name="title" variant="outlined" label="Title" fullWidth margin="normal" />
+        <TextField onClick={handlePaperClick} onChange={(e)=>setMessage(e.target.value)} value={message} name="message" variant="outlined" label="Message" fullWidth multiline rows={4} margin="normal" />
+        <TextField onClick={handlePaperClick} onChange={(e)=>handleTagsChange(e.target.value)} value={tags} name="tags" variant="outlined" label="Tags (comma separated)" fullWidth margin="normal" />
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-          <Button style={{flexGrow: 1, marginRight: "10px"}} onChange={(e)=>setSelectedimg(e.target.files[0])} component="label" variant="contained" tabIndex={-1}>Select picture<VisuallyHiddenInput type="file" accept="image/*" /></Button>
-          <Button onClick={handlePictureUpload} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ maxWidth: "10px" }}>{imgloading? <LoadingIcons.Circles speed={.75} height={24} /> : <CloudUploadIcon />}</Button>
+          <Button disabled={isdisabled} style={{flexGrow: 1, marginRight: "10px"}} onChange={(e)=>setSelectedimg(e.target.files[0])} component="label" variant="contained" tabIndex={-1}>Select picture<VisuallyHiddenInput type="file" accept="image/*" /></Button>
+          <Button disabled={isdisabled} onClick={handlePictureUpload} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ maxWidth: "10px" }}>{imgloading? <LoadingIcons.Circles speed={.75} height={24} /> : <CloudUploadIcon />}</Button>
         </div>
         <div style={{ marginTop: '15px' }}>
-          <Button onClick={handleSubmit} disabled={!imguploadstatus} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ marginBottom: '10px' }}>Submit</Button>
-          <Button onClick={handleClear} variant="contained" color="secondary" size="small" fullWidth>Clear</Button>
+          <Button onClick={handleSubmit} disabled={(!imguploadstatus) || (isdisabled)} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ marginBottom: '10px' }}>Submit</Button>
+          <Button onClick={handleClear} disabled={isdisabled} variant="contained" color="secondary" size="small" fullWidth>Clear</Button>
         </div>
+        </fieldset>
       </form>
     </Paper>
     </>
