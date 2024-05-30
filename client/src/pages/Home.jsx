@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Container, CssBaseline, Typography, AppBar, Grow, Grid, colors } from '@mui/material';
+import { Container, CssBaseline, Typography, AppBar, Grow, Grid, colors, Box } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import memories from "../assets/memories.png";
 import Posts from "../components/Posts/Posts.jsx";
@@ -23,13 +23,25 @@ export default function Home() {
     <Container maxWidth="lg">
       <CssBaseline />
       <AppBar position='static' color='inherit' style={{ border: "black solid", borderWidth: 1 , marginTop: "10px", borderRadius: '20px', marginBottom: '20px', padding: '5PX' }}>
-        <Container sx={{display: "flex", justifyContent: "space-between"}}>
+        <Container sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
               <Typography sx={{marginLeft: '20px',fontFamily: 'Poppins Medium',fontSize: {xs: '1.5rem', sm: '2rem',md: '3rem'}}} variant='h4' color="text.primary" align="center" >MEMORIES</Typography>
-              <img src={memories} alt="memories" style={{ width: '50px', height: '50px' }} />
+              <Box
+      component="img"
+      src={memories}
+      alt="Placeholder"
+      sx={{
+        width: {
+          xs: '30px', 
+          sm: '40px', 
+          md: '50px'
+        },
+        height: 'auto',
+      }}
+    />
             </div>
             <div style={{marginRight: "20px"}}>
-              <AccountCircleIcon onClick={handleLogin} style={{ width: '50px', height: '50px' }} />
+              <AccountCircleIcon onClick={handleLogin} sx={{ width: '40px', height: '40px' }} />
             </div>
         </Container>
       </AppBar>
