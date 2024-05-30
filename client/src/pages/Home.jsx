@@ -23,15 +23,15 @@ export default function Home() {
     <Container maxWidth="lg">
       <CssBaseline />
       <AppBar position='static' color='inherit' style={{ border: "black solid", borderWidth: 1 , marginTop: "10px", borderRadius: '20px', marginBottom: '20px', padding: '5PX' }}>
-        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+        <Container sx={{display: "flex", justifyContent: "space-between"}}>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-              <Typography variant='h3' color="text.primary" align="center" style={{ marginLeft: "20px", fontFamily: 'Poppins Medium' }}>MEMORIES</Typography>
+              <Typography sx={{marginLeft: '20px',fontFamily: 'Poppins Medium',fontSize: {xs: '1.5rem', sm: '2rem',md: '3rem'}}} variant='h4' color="text.primary" align="center" >MEMORIES</Typography>
               <img src={memories} alt="memories" style={{ width: '50px', height: '50px' }} />
             </div>
             <div style={{marginRight: "20px"}}>
               <AccountCircleIcon onClick={handleLogin} style={{ width: '50px', height: '50px' }} />
             </div>
-        </div>
+        </Container>
       </AppBar>
       <Grow in>
         <Container>
