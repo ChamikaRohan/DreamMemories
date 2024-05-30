@@ -32,3 +32,7 @@ export const signin = async (req, res)=>{
         res.status(500).json({error: "Internal server error"});
     }
 }
+
+export const auth = async (req, res) =>{
+    res.status(200).json({user: true});
+}

@@ -5,18 +5,19 @@ import memories from "../assets/memories.png";
 import Posts from "../components/Posts/Posts.jsx";
 import Form from "../components/Form/Form.jsx";
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { checkUser } from "../middlewares/CheckUser.js"
 
 export default function Home() {
+  const [userStatus, setUserStatus] = useState(false);
+  const apiURL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const handleLogin = () =>{
     navigate("/signup")
   }
 
-  useEffect(() => {
-    console.log("sddf");
-    const access_token = Cookies.get('access_token');
-    console.log(access_token);
+  useEffect(async() => {
+    const checkedUser =await checkUser();
+    setUserStatus(checkedUser);
 }, []);
 
   return (
@@ -40,7 +41,7 @@ export default function Home() {
               <Posts />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form user={true} disabled={true} />
+              <Form user={userStatus} />
             </Grid>
           </Grid>
         </Container>

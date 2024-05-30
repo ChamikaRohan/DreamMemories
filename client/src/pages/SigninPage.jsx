@@ -37,8 +37,9 @@ export default function SigninPage() {
             if (response.status == 200)
             {
                 setSigninmsg(data.message);
-                navigate("/");
                 Cookies.set('access_token', `${data.access_token}`);
+                navigate("/");
+
             }
             else{
                 setSigninerror(data.error);

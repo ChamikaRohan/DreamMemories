@@ -81,12 +81,12 @@ export default function Post({_id, likes, title, creator, postedDate, content, i
       </CardContent>
 
       <CardActions sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}} disableSpacing>
-        <IconButton aria-label="like" sx={{color:'red'}}>
-          <FavoriteIcon onClick={handleLike} />
+        <IconButton onClick={handleLike} aria-label="like" sx={{color:'red'}}>
+          <FavoriteIcon />
           <Typography sx={{color: "red", fontSize: "25px"}}>{likeCount}</Typography>
         </IconButton>
-        <IconButton aria-label="delete">
-          <DeleteForeverIcon onClick={handleDelete}/>
+        <IconButton onClick={handleDelete} aria-label="delete">
+          <DeleteForeverIcon/>
         </IconButton>
       </CardActions>
     </Card>
