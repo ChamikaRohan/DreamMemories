@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SigninPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye,faEyeSlash  } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function SigninPage() {
     const apiURL = import.meta.env.VITE_API_BASE_URL;
@@ -37,6 +38,7 @@ export default function SigninPage() {
             {
                 setSigninmsg(data.message);
                 navigate("/");
+                Cookies.set('access_token', `${data.access_token}`);
             }
             else{
                 setSigninerror(data.error);
@@ -47,7 +49,7 @@ export default function SigninPage() {
          setSigninerror('There was a problem with the fetch operation:', error);
         }
     }
-
+    
     return (
     <div className="mainContainer">
         <div className="subContainer">

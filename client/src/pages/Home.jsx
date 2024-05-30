@@ -1,16 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Container, CssBaseline, Typography, AppBar, Grow, Grid, colors } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import memories from "../assets/memories.png";
 import Posts from "../components/Posts/Posts.jsx";
 import Form from "../components/Form/Form.jsx";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function Home() {
   const navigate = useNavigate();
   const handleLogin = () =>{
     navigate("/signup")
   }
+
+  useEffect(() => {
+    console.log("sddf");
+    const access_token = Cookies.get('access_token');
+    console.log(access_token);
+}, []);
+
   return (
     <Container maxWidth="lg">
       <CssBaseline />

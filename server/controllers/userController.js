@@ -26,7 +26,7 @@ export const signin = async (req, res)=>{
     if(!isMatch){return res.status(401).json({ error: 'Invalid password' });};
     
     const token = jwt.sign({id: userExists._id}, process.env.JWT_SECRET,{ expiresIn: '2h'});
-    res.cookie("access_token", token, {httpOnly: true}).status(200).json({message: "User signed in successfully!"});
+    res.cookie("access_token", token, {httpOnly: true}).status(200).json({access_token: `${token}`});
     } 
     catch (error) {
         res.status(500).json({error: "Internal server error"});
