@@ -1,0 +1,159 @@
+.mainContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../assets/auth_bg.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.subContainer{
+    width: 350px;
+    height: 400px;
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 4px 16px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 1.2px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.topic{
+    margin-top: 30px;
+    font-size: 35px;
+    font-family: 'Poppins SemiBold', sans-serif;
+    margin-bottom: 20px;
+
+}
+
+.subtopic{
+    font-family: "Poppins Light";
+    font-size: 11px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: gray;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.form input:not(.passwordInput){
+    width: 30ch;
+    height: 30px;
+    border-radius: 9px;
+    border: solid rgb(231, 220, 220);
+    border-width: 1px;
+    font-family: 'Poppins Light';
+    padding-left: 12px;
+    font-size: 14px;
+    color: grey;
+    outline: none;
+}
+
+.passwordContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.passwordInput {
+    flex: 1;
+    height: 30px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-radius: 9px;
+    border: solid rgb(231, 220, 220);
+    border-width: 1px;
+    font-family: 'Poppins Light';
+    padding-left: 12px;
+    font-size: 14px;
+    color: grey;
+    outline: none;
+}
+
+.viewPasswordBtn {
+    margin-left: 6px;
+    width: auto;
+    height: 32px;
+    border: solid rgb(231, 220, 220);
+    border-width: 1px;
+    border-radius: 9px;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+
+
+.form .btn{
+    width:auto;
+    height: 40px;
+    background-color: rgb(43, 167, 43);
+    border-radius: 1cap;
+    border-width: 1px;
+    border-color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: "Poppins Medium";  
+    margin-bottom: 15px;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, transform 0.3s;
+    position: relative;  
+}
+
+.form .btn::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    z-index: -1;
+    background: rgb(26, 195, 88);
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s, filter 0.3s;
+}
+
+.form .btn:hover{
+    transform: scale(1.0005);
+    transition-duration: 0.25s;
+}
+
+.form .btn:hover::after {
+    opacity: 0.9;
+    filter: blur(9px);
+}
+
+.bottomContainer{
+    display: flex;
+    gap: 6px;
+}
+
+.bottomFText{
+    font-family: "Poppins Light";
+    font-size: 10px;
+}
+
+.bottomSText{
+    font-family: "Poppins Regular";
+    font-size: 10px;
+    color: brown;
+    cursor: pointer;
+}
+
