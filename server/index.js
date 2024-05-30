@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import postMessageRoutes from "./routes/postMessageRoutes.js"
+import userRoute from "./routes/userRoute.js"
 
 dotenv.config();
 
@@ -24,3 +25,4 @@ mongoose.connect(DB)
 app.listen( PORT, (console.log(`Server is running on port: ${PORT}`)));
 
 app.use("/api/posts", postMessageRoutes);
+app.use('/api/user', userRoute);
