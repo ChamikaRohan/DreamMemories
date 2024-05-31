@@ -37,7 +37,10 @@ export default function SigninPage() {
             if (response.status == 200)
             {
                 setSigninmsg(data.message);
-                Cookies.set('access_token', `${data.access_token}`);
+                Cookies.set('access_token', `${data.access_token}`, {
+                    secure: true,
+                    sameSite: 'None'
+                  });
                 navigate("/");
 
             }
