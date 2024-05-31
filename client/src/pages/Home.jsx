@@ -5,7 +5,7 @@ import memories from "../assets/memories.png";
 import Posts from "../components/Posts/Posts.jsx";
 import Form from "../components/Form/Form.jsx";
 import { useNavigate } from 'react-router-dom';
-import { checkUser } from "../middlewares/CheckUser.js"
+// import { checkUser } from "../middlewares/CheckUser.js"
 
 export default function Home() {
   const [userStatus, setUserStatus] = useState(false);
@@ -15,8 +15,21 @@ export default function Home() {
     navigate("/signup")
   }
 
+  const checkUser = async()=>{
+    const apiURL = import.meta.env.VITE_API_BASE_URL;
+    const response = await fetch(`${apiURL}/user/auth`,{
+      credentials: 'include'
+    });
+    const data = await response.json();
+    console.log("What home.checkUser recived: 1:", response);
+    console.log("What home.checkUser recived: 2:", data);
+    if (response.status == 401) {return false;}
+    else if (data.user === true) {return true;};
+  }
+
   useEffect(async() => {
     const checkedUser =await checkUser();
+    console.log("checkedUser", checkUser);
     setUserStatus(checkedUser);
 }, []);
 
