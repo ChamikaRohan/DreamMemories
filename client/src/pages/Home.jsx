@@ -27,10 +27,14 @@ export default function Home() {
     else if (data.user === true) {return true;};
   }
 
-  useEffect(async() => {
-    const checkedUser =await checkUser();
-    console.log("checkedUser", checkUser);
-    setUserStatus(checkedUser);
+  useEffect(() => {
+    const fetchUserStatus = async () => {
+      const checkedUser = await checkUser();
+      console.log("checkedUser", checkedUser);
+      setUserStatus(checkedUser);
+    };
+
+    fetchUserStatus();
 }, []);
 
   return (
