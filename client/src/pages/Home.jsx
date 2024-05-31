@@ -5,6 +5,7 @@ import memories from "../assets/memories.png";
 import Posts from "../components/Posts/Posts.jsx";
 import Form from "../components/Form/Form.jsx";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 // import { checkUser } from "../middlewares/CheckUser.js"
 
 export default function Home() {
@@ -18,7 +19,9 @@ export default function Home() {
   const checkUser = async()=>{
     const apiURL = import.meta.env.VITE_API_BASE_URL;
     const response = await fetch(`${apiURL}/user/auth`,{
-      credentials: 'include'
+      method: "POST",
+      headers:{"Content-Type": "application/json"},
+      body: JSON.stringify({'access_token': `${Cookies.get('access_token')}`})
     });
     const data = await response.json();
     console.log("What home.checkUser recived: 1:", response);

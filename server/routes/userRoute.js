@@ -6,6 +6,6 @@ const route = express.Router();
 
 route.post('/signup', signup);
 route.post('/signin', signin);
-route.get('/auth',cookieJwtAuth, auth);
+route.post('/auth',cookieJwtAuth, auth);
 
 export default route;
