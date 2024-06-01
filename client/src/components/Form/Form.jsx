@@ -3,6 +3,7 @@ import { TextField, Button, Typography, Paper } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import LoadingIcons from 'react-loading-icons'
+import {Toaster, toast} from "react-hot-toast"
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -69,10 +70,15 @@ export default function Form({user}) {
     });
     console.log(reponse.json());
     setImguploadstatus(false);
-    window.location.reload();
+    toast.success('Post-memory creation successful!',{duration: 1500});
+    setTimeout(()=>{
+      window.location.reload();
+    }, 1800);
     }
   catch(error)
   {
+    toast.error('Post-memory creation failed!',{duration: 1500});
+      toast.error(`${error}`,{duration: 1500});
     console.log("There was a problem with the fetch operation: ", error);
   }
   }
@@ -116,6 +122,7 @@ export default function Form({user}) {
         </div>
         </fieldset>
       </form>
+      <Toaster/>
     </Paper>
     </>
   );

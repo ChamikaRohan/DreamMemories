@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {Toaster, toast} from "react-hot-toast"
 
 function truncateContent(content, limit) {
   if (content.length > limit) {
@@ -35,10 +36,16 @@ export default function Post({_id, likes, title, creator, postedDate, content, i
       });
   
       const data = await response.json();
-      window.location.reload();
+      toast.success('Post-memory deletion successful!',{duration: 1500});
+      setTimeout(()=>{
+        window.location.reload();
+      }, 1800);
+  
     }
     catch(error)
     {
+      toast.error('Post-memory deletion failed!',{duration: 1500});
+      toast.error(`${error}`,{duration: 1500});
       console.log("There was a problem with the fetch operation: ", error);
     }
   }
@@ -89,6 +96,7 @@ export default function Post({_id, likes, title, creator, postedDate, content, i
           <DeleteForeverIcon/>
         </IconButton>
       </CardActions>
+      <Toaster/>
     </Card>
   );
 }
