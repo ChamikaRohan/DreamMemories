@@ -44,7 +44,7 @@ export default function SigninPage() {
                     secure: true,
                     sameSite: 'None'
                   });
-                navigate("/");
+                navigate("/Home");
 
             }
             else{

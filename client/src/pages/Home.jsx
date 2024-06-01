@@ -6,6 +6,7 @@ import Posts from "../components/Posts/Posts.jsx";
 import Form from "../components/Form/Form.jsx";
 import { useNavigate } from 'react-router-dom';
 import { checkUser } from "../middlewares/CheckUser.js"
+import authBg from '../assets/page_bg.jpg';
 
 export default function Home() {
   const [userStatus, setUserStatus] = useState(false);
@@ -25,6 +26,7 @@ export default function Home() {
 }, []);
 
   return (
+    <Container maxWidth={false} disableGutters sx={{backgroundImage: `url(${authBg})`, backgroundSize: "cover", backgroundPosition: "center"}}>
     <Container maxWidth="lg">
       <CssBaseline />
       <AppBar position='static' color='inherit' style={{ border: "black solid", borderWidth: 1 , marginTop: "10px", borderRadius: '20px', marginBottom: '20px', padding: '5PX' }}>
@@ -50,6 +52,7 @@ export default function Home() {
           </Grid>
         </Container>
       </Grow>
+    </Container>
     </Container>
   );
 }
