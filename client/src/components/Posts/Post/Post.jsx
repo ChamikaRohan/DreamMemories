@@ -72,8 +72,6 @@ export default function Post({_id, likes, title, creator, postedDate, content, i
   const handleClick = (event) => {
     const element = event.currentTarget;
     element.style.animation = 'heartBeat 0.6s ease-in-out';
-    
-    // Remove the animation after it ends to reset it
     element.addEventListener('animationend', () => {
       element.style.animation = '';
     }, { once: true });
@@ -98,8 +96,7 @@ export default function Post({_id, likes, title, creator, postedDate, content, i
 
       <CardActions sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}} disableSpacing>
         <IconButton onClick={handleLike} aria-label="like" sx={{color:'red'}}>
-          <FavoriteIcon style={{ fontSize: '25px', display: 'inline-block' }} 
-      onClick={handleClick} />
+          <FavoriteIcon style={{ fontSize: '25px', display: 'inline-block' }} onClick={handleClick} />
           <Typography sx={{color: "red", fontSize: "20px"}}>{likeCount}</Typography>
         </IconButton>
         <IconButton onClick={handleDelete} aria-label="delete">

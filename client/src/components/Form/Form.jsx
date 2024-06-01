@@ -4,6 +4,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import LoadingIcons from 'react-loading-icons'
 import {Toaster, toast} from "react-hot-toast"
+import Cookies from 'js-cookie';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -22,7 +23,6 @@ export default function Form({user}) {
 
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [creator, setCreator] = useState("");
   const [tags, setTags] = useState([]);
   const [selectedimg, setSelectedimg] = useState("");
   const [selectedURL, setSelectedURL] = useState("");
@@ -66,7 +66,7 @@ export default function Form({user}) {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({title, message, creator, tags, selectedURL, "image": selectedURL})
+        body: JSON.stringify({'access_token': `${Cookies.get('access_token')}`,title, message, tags, selectedURL, "image": selectedURL})
     });
     console.log(reponse.json());
     setImguploadstatus(false);
@@ -86,7 +86,6 @@ export default function Form({user}) {
   const handleClear = () => {
     setTitle("");
     setMessage("");
-    setCreator("");
     setTags([]);
     setSelectedimg("");
     setSelectedURL("");
@@ -108,7 +107,6 @@ export default function Form({user}) {
       <form onClick={handlePaperClick} autoComplete="off" noValidate style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <fieldset onClick={handlePaperClick} disabled={isdisabled} style={{ border: 'none', padding: 0 }}>
         <Typography variant="h6">Create a memory</Typography>
-        <TextField onClick={handlePaperClick} onChange={(e)=>setCreator(e.target.value)} value={creator} name="creator" variant="outlined" label="Creator" fullWidth margin="normal" />
         <TextField onClick={handlePaperClick} onChange={(e)=>setTitle(e.target.value)} value={title} name="title" variant="outlined" label="Title" fullWidth margin="normal" />
         <TextField onClick={handlePaperClick} onChange={(e)=>setMessage(e.target.value)} value={message} name="message" variant="outlined" label="Message" fullWidth multiline rows={4} margin="normal" />
         <TextField onClick={handlePaperClick} onChange={(e)=>handleTagsChange(e.target.value)} value={tags} name="tags" variant="outlined" label="Tags (comma separated)" fullWidth margin="normal" />

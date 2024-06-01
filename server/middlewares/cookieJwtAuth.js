@@ -6,7 +6,8 @@ export const cookieJwtAuth = (req, res, next)=>{
 
     try {
         const data = jwt.verify(token, process.env.JWT_SECRET);
-        const id = data.userId;
+        const id = data.id;
+        req.id  = id;
 
         next();
       } catch (err) {

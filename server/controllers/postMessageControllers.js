@@ -2,6 +2,7 @@ import PMessage from "../model/postMessageModel.js"
 import { initializeApp } from "firebase/app"
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import fconfig from "../firebase/firebaseConfig.js"
+import User from "../model/userModel.js"
 
 initializeApp(fconfig.firebaseConfig);
 const storage = getStorage();
@@ -9,7 +10,22 @@ const storage = getStorage();
 export const createPostMessage = async(req, res)=>{
     try{
         const reqData = req.body;
-        const pMessage = new PMessage(reqData);
+
+        const title = reqData.title;
+        const message = reqData.message;
+        const tags = reqData.tags;
+        const image = reqData.image;
+        const id = req.id;
+
+        const findUser = await User.findById(id);
+        if (!findUser) return res.status(401 ).json({error: "Unauthorized, please signup!"});
+
+        const username = findUser.firstName + " " + findUser.lastName;
+        const creator = username;
+
+        const pmsgContent = {title,message,creator,tags,image};
+
+        const pMessage = new PMessage(pmsgContent);
         const savedPmessage = await pMessage.save();
         res.status(200).json({message: "Post Message created succesfully!"})
     }

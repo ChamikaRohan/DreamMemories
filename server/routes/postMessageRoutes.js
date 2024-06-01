@@ -10,7 +10,7 @@ const uploadFileMulter = multer({ storage: multer.memoryStorage() })
 
 const route = express.Router();
 
-route.post("/create-pmessage", createPostMessage);
+route.post("/create-pmessage",cookieJwtAuth, createPostMessage);
 route.get("/get-allpmessages", getAllPostMessages);
 route.post("/create-pfile",uploadFileMulter.single('file'), uploadFile);
 route.post("/delete-pmessage", deletePostMessage);
