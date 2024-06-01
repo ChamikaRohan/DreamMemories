@@ -108,7 +108,7 @@ export default function Form({user}) {
         <TextField onClick={handlePaperClick} onChange={(e)=>handleTagsChange(e.target.value)} value={tags} name="tags" variant="outlined" label="Tags (comma separated)" fullWidth margin="normal" />
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
           <Button disabled={isdisabled} style={{flexGrow: 1, marginRight: "10px"}} onChange={(e)=>setSelectedimg(e.target.files[0])} component="label" variant="contained" tabIndex={-1}>Select picture<VisuallyHiddenInput type="file" accept="image/*" /></Button>
-          <Button disabled={isdisabled} onClick={handlePictureUpload} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ maxWidth: "10px" }}>{imgloading? <LoadingIcons.Circles speed={.75} height={24} /> : <CloudUploadIcon />}</Button>
+          <Button disabled={isdisabled} onClick={handlePictureUpload} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ maxWidth: "10px" }}>{imgloading? <LoadingIcons.TailSpin  speed={1} height={24} /> : <CloudUploadIcon />}</Button>
         </div>
         <div style={{ marginTop: '15px' }}>
           <Button onClick={handleSubmit} disabled={(!imguploadstatus) || (isdisabled)} variant="contained" color="primary" size="large" type="submit" fullWidth style={{ marginBottom: '10px' }}>Submit</Button>

@@ -3,6 +3,7 @@ import './SignupPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye,faEyeSlash  } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom'
+import LoadingIcons from 'react-loading-icons'
 
 export default function SignupPage() {
     const apiURL = import.meta.env.VITE_API_BASE_URL;
@@ -14,6 +15,7 @@ export default function SignupPage() {
     const navigate = useNavigate();
     const [signupmsg,setSignupmsg] = useState("");
     const [signuperror,setSignuperror] = useState("");
+    const [regloading, setRegloading] = useState(false);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -27,6 +29,7 @@ export default function SignupPage() {
     const handleRegister = async(e) =>{
         e.preventDefault();
         try{
+            setRegloading(true);
             const response = await fetch(`${apiURL}/user/signup`, {
                 method: "POST",
                 headers: {
@@ -36,6 +39,7 @@ export default function SignupPage() {
             })
             console.log({"firstName": fname, "lastName": lname, email, password});
             const data = await response.json();
+            setRegloading(false);
             if (response.status === 200)
             {
                 setSignupmsg(data.message);
@@ -47,6 +51,7 @@ export default function SignupPage() {
         }
        catch(error)
        {
+        setRegloading(false);
          setSignuperror('There was a problem with the fetch operation:', error);
         }
     }
@@ -63,7 +68,7 @@ export default function SignupPage() {
                     <input type={showPassword? "": "password"} className="passwordInput" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                     <button type="button" className="viewPasswordBtn" onClick={togglePasswordVisibility}>{showPassword? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}</button>
                 </div>
-                <button className='btn' onClick={handleRegister}>Register</button>
+                <button className='btn' style={{display: "flex", alignItems: "center", justifyContent: "center"}} onClick={handleRegister}>{regloading? <LoadingIcons.TailSpin  speed={1} height={24} /> : "Register"}</button>
             </form>
             <div className='bottomContainer'>
                 <label className='bottomFText' >Already Register?</label>

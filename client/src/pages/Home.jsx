@@ -42,7 +42,7 @@ export default function Home() {
         <Container>
           <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
             <Grid item xs={12} sm={8}>
-              <Posts />
+              <Posts user={userStatus} />
             </Grid>
             <Grid item xs={12} sm={4}>
               <Form user={userStatus} />
