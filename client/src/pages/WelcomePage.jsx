@@ -1,10 +1,15 @@
 import React from 'react';
 import { Container, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import authBg from '../assets/page_bg.jpg';
 import { TypeAnimation } from 'react-type-animation';
 
 export default function WelcomePage() {
+  const navigate = useNavigate();
+  const handleGetStarted = ()=>{
+    navigate("/home")
+  }
+
   return (
     <Container
       maxWidth={false}
@@ -43,18 +48,18 @@ export default function WelcomePage() {
       repeat={Infinity}
     />
     <div>
-        <Button variant="contained" color="primary" component={Link} to="/Home" sx={{
+        <Button variant="contained" color="primary" onClick={handleGetStarted} sx={{
             margin: 1,
             marginTop: 3, 
             borderRadius: 20,
             padding: '8px 15px', 
             fontWeight: 'bold', 
-            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }, // Responsive font size
-            background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', // Gradient background
-            boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)', // Box shadow
-            transition: 'transform 0.3s', // Add transition
+            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }, 
+            background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', 
+            boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)', 
+            transition: 'transform 0.3s', 
             '&:hover': {
-              transform: 'scale(1.05)', // Scale effect on hover
+              transform: 'scale(1.05)', 
             }
           }}>
           Get Started
