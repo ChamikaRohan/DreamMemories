@@ -7,8 +7,11 @@ import Form from "../components/Form/Form.jsx";
 import { useNavigate } from 'react-router-dom';
 import { checkUser } from "../middlewares/CheckUser.js"
 import authBg from '../assets/page_bg.jpg';
+import WelcomePage from './WelcomePage.jsx';
+import Cookies from 'js-cookie';
 
 export default function Home() {
+    const [firsttime, setFirsttime] = useState(false);
     const [userStatus, setUserStatus] = useState(false);
     const apiURL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
@@ -17,6 +20,9 @@ export default function Home() {
     }
   
     useEffect(() => {
+      const isFirstTime = Cookies.get('first_time');
+      if(isFirstTime){setFirsttime(isFirstTime);}
+      
       const fetchUserStatus = async () => {
         const checkedUser = await checkUser();
         setUserStatus(checkedUser);
@@ -26,6 +32,8 @@ export default function Home() {
   }, []);
   
     return (
+    <div>
+    {!firsttime ? <WelcomePage/> :
       <Container maxWidth={false} disableGutters sx={{backgroundImage: `url(${authBg})`, backgroundSize: "cover", backgroundPosition: "center"}}>
       <Container maxWidth="lg">
         <CssBaseline />
@@ -54,7 +62,8 @@ export default function Home() {
         </Grow>
       </Container>
       <Container sx={{ marginBottom: "20px"}} />
-      </Container>
+      </Container>}
+      </div>
     );
   }
   

@@ -47,7 +47,7 @@ export default function SigninPage() {
                   });
                 toast.success('Sign-in Successful!',{duration: 1500});
                 setTimeout(()=>{
-                    navigate("/home");
+                    navigate("/");
                 }, 1800);
 
             }

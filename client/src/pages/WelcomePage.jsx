@@ -3,11 +3,17 @@ import { Container, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import authBg from '../assets/page_bg.jpg';
 import { TypeAnimation } from 'react-type-animation';
+import Cookies from 'js-cookie';
 
 export default function WelcomePage() {
   const navigate = useNavigate();
   const handleGetStarted = ()=>{
-    navigate("/home")
+    Cookies.set('first_time',"false", {
+      secure: true,
+      sameSite: 'None'
+    });
+    console.log("dfd");
+    window.location.reload();
   }
 
   return (
