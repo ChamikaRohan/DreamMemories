@@ -5,6 +5,7 @@ import { faEye,faEyeSlash  } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import LoadingIcons from 'react-loading-icons'
+import {Toaster, toast} from "react-hot-toast"
 
 export default function SigninPage() {
     const apiURL = import.meta.env.VITE_API_BASE_URL;
@@ -44,10 +45,15 @@ export default function SigninPage() {
                     secure: true,
                     sameSite: 'None'
                   });
-                navigate("/Home");
+                toast.success('Sign-in Successful!',{duration: 1500});
+                setTimeout(()=>{
+                    navigate("/Home");
+                }, 1800);
 
             }
             else{
+                toast.error('Sign-in Failed!',{duration: 1500});
+                toast.error(`${data.error}`,{duration: 1500});
                 setSigninerror(data.error);
             }
         }
@@ -76,6 +82,7 @@ export default function SigninPage() {
                 <label className='bottomSText' onClick={goToSignup} >Register now</label>
             </div>
         </div>
+        <Toaster position="top-center" reverseOrder={false}/>
     </div>
   )
 }

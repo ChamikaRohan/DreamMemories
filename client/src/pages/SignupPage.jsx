@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye,faEyeSlash  } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom'
 import LoadingIcons from 'react-loading-icons'
+import {Toaster, toast} from "react-hot-toast"
 
 export default function SignupPage() {
     const apiURL = import.meta.env.VITE_API_BASE_URL;
@@ -37,15 +38,20 @@ export default function SignupPage() {
                   },
                 body: JSON.stringify({"firstName": fname, "lastName": lname, email, password})
             })
-            console.log({"firstName": fname, "lastName": lname, email, password});
+           
             const data = await response.json();
             setRegloading(false);
             if (response.status === 200)
             {
+                toast.success('Registration Successful!',{duration: 1500});
                 setSignupmsg(data.message);
-                navigate("/signin");
+                setTimeout(()=>{
+                    navigate("/signin");
+                }, 1800);
             }
             else{
+                toast.error('Registration Failed!',{duration: 1500});
+                toast.error(`${data.error}`,{duration: 1500});
                 setSignuperror(data.error);
             }
         }
@@ -75,6 +81,7 @@ export default function SignupPage() {
                 <label onClick={goToSignin} className='bottomSText' >Login now</label>
             </div>
         </div>
+        <Toaster position="top-center" reverseOrder={false}/>
     </div>
   )
 }
