@@ -11,6 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Toaster, toast} from "react-hot-toast"
+import "./styles.css"
 
 function truncateContent(content, limit) {
   if (content.length > limit) {
@@ -68,7 +69,15 @@ export default function Post({_id, likes, title, creator, postedDate, content, i
       console.error("There was a problem with the fetch operation:", error);
     }
   }
-
+  const handleClick = (event) => {
+    const element = event.currentTarget;
+    element.style.animation = 'heartBeat 0.6s ease-in-out';
+    
+    // Remove the animation after it ends to reset it
+    element.addEventListener('animationend', () => {
+      element.style.animation = '';
+    }, { once: true });
+  };
   return (
     <Card elevation={2} sx={{ ":hover": {boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.3)"}, maxWidth: 320 }}>
       <CardHeader action={ <IconButton aria-label="settings"><MoreVertIcon /></IconButton>}
@@ -89,8 +98,9 @@ export default function Post({_id, likes, title, creator, postedDate, content, i
 
       <CardActions sx={{display: "flex", flexDirection: "row", justifyContent: "space-between"}} disableSpacing>
         <IconButton onClick={handleLike} aria-label="like" sx={{color:'red'}}>
-          <FavoriteIcon />
-          <Typography sx={{color: "red", fontSize: "25px"}}>{likeCount}</Typography>
+          <FavoriteIcon style={{ fontSize: '25px', display: 'inline-block' }} 
+      onClick={handleClick} />
+          <Typography sx={{color: "red", fontSize: "20px"}}>{likeCount}</Typography>
         </IconButton>
         <IconButton onClick={handleDelete} aria-label="delete">
           <DeleteForeverIcon/>
