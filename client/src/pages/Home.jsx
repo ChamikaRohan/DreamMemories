@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Container, CssBaseline, Typography, AppBar, Grow, Grid, colors, Box } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 import memories from "../assets/memories.png";
 import Posts from "../components/Posts/Posts.jsx";
 import Form from "../components/Form/Form.jsx";
@@ -9,10 +10,12 @@ import { checkUser } from "../middlewares/CheckUser.js"
 import authBg from '../assets/page_bg.jpg';
 import WelcomePage from './WelcomePage.jsx';
 import Cookies from 'js-cookie';
+import Badge from '@mui/material/Badge';
 
 export default function Home() {
     const [firsttime, setFirsttime] = useState(false);
     const [userStatus, setUserStatus] = useState(false);
+
     const apiURL = import.meta.env.VITE_API_BASE_URL;
     const navigate = useNavigate();
     const handleLogin = () =>{
@@ -44,7 +47,12 @@ export default function Home() {
                 <Box component="img" src={memories} alt="Placeholder" sx={{width: {xs: '32px', sm: '40px', md: '50px'},height: 'auto'}}/>
               </div>
               <div style={{marginRight: "20px"}}>
-                <AccountCircleIcon onClick={handleLogin} sx={{width: {xs: '32px', sm: '40px', md: '50px'},height: 'auto'}} />
+                <Badge overlap="circular" badgeContent=" " variant="dot" color={userStatus? "success" : "error"}>
+                  {userStatus ? 
+                  <AccountCircleIcon onClick={handleLogin} sx={{width: {xs: '32px', sm: '40px', md: '50px'},height: 'auto'}} /> :
+                  <NoAccountsIcon onClick={handleLogin} sx={{width: {xs: '32px', sm: '40px', md: '50px'},height: 'auto'}} /> 
+                  }
+                </Badge>
               </div>
           </Container>
         </AppBar>
