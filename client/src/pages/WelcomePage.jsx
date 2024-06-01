@@ -17,13 +17,13 @@ export default function WelcomePage() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
-        width: "100vw",
+        height: "95vh",
+        width: "99vw",
         padding: 0,
         margin: 0,
       }}
     >
-      <Typography sx={{ padding: "9px",borderRadius: "9px",":hover":{ color: "white" ,backgroundColor:" black"  , borderRadius: "9px", padding: "9px", transition:"1.5s" }, fontWeight: "600" , fontSize: { xs: '1.3rem', sm: '2rem', md: "3rem" } }} component="h1" >
+      <Typography sx={{marginBottom: "20px" , padding: "9px",borderRadius: "9px",":hover":{ color: "white" ,backgroundColor:" black"  , borderRadius: "9px" ,transition:"1.5s" }, fontWeight: "600" , fontSize: { xs: '1.3rem', sm: '2rem', md: "3rem" } }} component="h1" >
         Welcome to Dream Memories
       </Typography>
       <TypeAnimation

@@ -10,7 +10,7 @@ export default function AuthApp() {
     <Router>
       <Routes>
         <Route path='/' element={<WelcomePage/>} />
-        <Route path='/Home' element={<Home/>} />
+        <Route path='/home' element={<Home/>} />
         <Route path='/signup' element={<SignupPage/>} />
         <Route path='/signin' element={<SigninPage/>} />
       </Routes>
