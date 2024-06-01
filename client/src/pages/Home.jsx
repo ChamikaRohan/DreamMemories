@@ -53,6 +53,7 @@ export default function Home() {
         </Container>
       </Grow>
     </Container>
+    <Container sx={{ marginBottom: "20px"}} />
     </Container>
   );
 }
