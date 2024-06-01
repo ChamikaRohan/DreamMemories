@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye,faEyeSlash  } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import LoadingIcons from 'react-loading-icons'
 
 export default function SigninPage() {
     const apiURL = import.meta.env.VITE_API_BASE_URL;
@@ -13,7 +14,8 @@ export default function SigninPage() {
     const navigate = useNavigate();
     const [signinmsg,setSigninmsg] = useState();
     const [signinerror,setSigninerror] = useState();
-  
+    const [logloading, setLogloading] = useState(false);
+   
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -25,6 +27,7 @@ export default function SigninPage() {
     const handleLogin = async(e) =>{
         e.preventDefault();
         try{
+            setLogloading(true);
             const response = await fetch(`${apiURL}/user/signin`, {
                 method: "POST",
                 headers: {
@@ -33,7 +36,7 @@ export default function SigninPage() {
                 body: JSON.stringify({email, password})
             })
             const data = await response.json();
-
+            setLogloading(false);
             if (response.status == 200)
             {
                 setSigninmsg(data.message);
@@ -50,6 +53,7 @@ export default function SigninPage() {
         }
        catch(error)
        {
+         setLogloading(false);
          setSigninerror('There was a problem with the fetch operation:', error);
         }
     }
@@ -65,7 +69,7 @@ export default function SigninPage() {
                     <input type={showPassword? "text": "password"} className="passwordInput" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                     <button type="button" className="viewPasswordBtn" onClick={togglePasswordVisibility}>{showPassword? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}</button>
                 </div>
-                <button className='btn' onClick={handleLogin}>Let's Go</button>
+                <button className='btn' onClick={handleLogin} style={{display: "flex", alignItems: "center", justifyContent: "center"}} >{logloading? <LoadingIcons.TailSpin  speed={1} height={24} /> : "Let's Go"}</button>
             </form>
             <div className='bottomContainer'>
                 <label className='bottomFText' >Not a Member?</label>
